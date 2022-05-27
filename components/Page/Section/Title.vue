@@ -1,14 +1,14 @@
 <template>
-  <div class="text-2xl font-semibold mb-1">
-    <slot>{{ text }}</slot>
-  </div>
+    <div class="text-2xl font-semibold mb-1">
+        <slot>{{ text }}</slot>
+    </div>
 </template>
 
 <script lang="ts" setup>
 defineProps({
-  text: {
-    type: String,
-    default: '',
-  },
+    text: {
+        type: String,
+        default: '',
+    },
 })
 </script>

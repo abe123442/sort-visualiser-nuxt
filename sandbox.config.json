@@ -1,9 +1,9 @@
 {
-  "infiniteLoopProtection": true,
-  "hardReloadOnChange": false,
-  "view": "browser",
-  "template": "nuxt",
-  "container": {
-    "node": "14"
-  }
+    "infiniteLoopProtection": true,
+    "hardReloadOnChange": false,
+    "view": "browser",
+    "template": "nuxt",
+    "container": {
+        "node": "14"
+    }
 }

@@ -2,8 +2,8 @@
 a Nuxt 3 starter template or boilerplate with a lot of useful features. and integrated with TailwindCSS 3.
 
 > **WARNING** \
-> Nuxt 3 now in RC version (Release Candidate) [But i'm still using from nuxt3 latest version]  
-> Nuxt 3 is still in beta and is not recommended for production use.  
+> Nuxt 3 now in RC version (Release Candidate) [But i'm still using from nuxt3 latest version]    
+> Nuxt 3 is still in beta and is not recommended for production use.    
 > Breaking changes tracker can be found [here](https://github.com/nuxt/framework/discussions/2883)
 
 ## Features
@@ -26,45 +26,45 @@ a Nuxt 3 starter template or boilerplate with a lot of useful features. and inte
 
 ## Preview
 <table align="center">
-  <tr>
-    <td align="center" width="75%">
-      <img src="https://github.com/viandwi24/nuxt3-awesome-starter/blob/main/assets/images/preview.gif?raw=true" alt="Preview" title="Preview">
-    </td>
-    <td align="center" width="25%">
-      <img src="https://github.com/viandwi24/nuxt3-awesome-starter/blob/main/assets/images/preview_mobile.gif?raw=true" alt="Preview" title="Preview">
-    </td>
-  </tr>
+    <tr>
+        <td align="center" width="75%">
+            <img src="https://github.com/viandwi24/nuxt3-awesome-starter/blob/main/assets/images/preview.gif?raw=true" alt="Preview" title="Preview">
+        </td>
+        <td align="center" width="25%">
+            <img src="https://github.com/viandwi24/nuxt3-awesome-starter/blob/main/assets/images/preview_mobile.gif?raw=true" alt="Preview" title="Preview">
+        </td>
+    </tr>
 </table>
 <p align="center">
-  <br>
-  <a href="https://nuxt3-awesome-starter.vercel.app/" target="_blank">
-    Live Demo
-  </a>
-  <br><br>
-  <a href="https://codesandbox.io/s/github/viandwi24/nuxt3-awesome-starter" title="Open In Code Sandbox">
-    <img src="https://img.shields.io/badge/Open%20in-CodeSandbox-blue?style=flat-square&logo=codesandboxg" alt="Open In Code Sandbox">
-  </a>
-  <br>
-  <a href="https://stackblitz.com/github/viandwi24/nuxt3-awesome-starter" title="Open In Stackblitz">
-    <img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg" alt="Open In Stackblitz">
-  </a>
+    <br>
+    <a href="https://nuxt3-awesome-starter.vercel.app/" target="_blank">
+        Live Demo
+    </a>
+    <br><br>
+    <a href="https://codesandbox.io/s/github/viandwi24/nuxt3-awesome-starter" title="Open In Code Sandbox">
+        <img src="https://img.shields.io/badge/Open%20in-CodeSandbox-blue?style=flat-square&logo=codesandboxg" alt="Open In Code Sandbox">
+    </a>
+    <br>
+    <a href="https://stackblitz.com/github/viandwi24/nuxt3-awesome-starter" title="Open In Stackblitz">
+        <img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg" alt="Open In Stackblitz">
+    </a>
 </p>
 
 ## Table of Contents
 - [Nuxt 3 Awesome Starter](#nuxt-3-awesome-starter)
-  - [Features](#features)
-  - [To Do](#to-do)
-  - [Preview](#preview)
-  - [Table of Contents](#table-of-contents)
-  - [Quick Start](#quick-start)
-  - [Built-in Components](#built-in-components)
-  - [Notes](#notes)
-    - [Styles](#styles)
-    - [Theme (Dark Mode)](#theme-dark-mode)
-    - [Localization](#localization)
-    - [Icons](#icons)
-    - [Precommit and Postmerge](#precommit-and-postmerge)
-  - [License](#license)
+    - [Features](#features)
+    - [To Do](#to-do)
+    - [Preview](#preview)
+    - [Table of Contents](#table-of-contents)
+    - [Quick Start](#quick-start)
+    - [Built-in Components](#built-in-components)
+    - [Notes](#notes)
+        - [Styles](#styles)
+        - [Theme (Dark Mode)](#theme-dark-mode)
+        - [Localization](#localization)
+        - [Icons](#icons)
+        - [Precommit and Postmerge](#precommit-and-postmerge)
+    - [License](#license)
 
 ## Quick Start
 * This project using `yarn` as package manager.
@@ -81,21 +81,21 @@ Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment).
 - [x] Button
 - [x] Anchor (link)
 - [x] Navbar
-  - [x] Navbar Builder
-  - [x] Drawer (on mobile)
-  - [x] Options (on mobile)
+    - [x] Navbar Builder
+    - [x] Drawer (on mobile)
+    - [x] Options (on mobile)
 - [x] Action Sheet
 - [x] Theme Toggle / Switcher
 - [x] Page Layout
-  - [x] Wrapper
-  - [x] Header
-    - [x] Title
-  - [x] Body
-    - [x] Section
-      - [x] Section Wrapper
-      - [x] Section Title
+    - [x] Wrapper
+    - [x] Header
+        - [x] Title
+    - [x] Body
+        - [x] Section
+            - [x] Section Wrapper
+            - [x] Section Title
 - [x] Dashboard Layout
-    - [x] Sidebar
+        - [x] Sidebar
 - [ ] Modal
 - [ ] Alert
 - [ ] 
@@ -171,22 +171,22 @@ you can use `<prefix-collection:icon />` or `<PrefixCollection:Icon />`.
 in this project, configuration prefix as a "icon", you can see in `nuxt.config.ts` :
 ```js
 export default defineNuxtConfig({
-    ...
+        ...
 
-    vite: {
-        plugins: [
-            UnpluginComponentsVite({
-                dts: true,
-                resolvers: [
-                    IconsResolver({
-                        prefix: 'Icon',
-                    }),
+        vite: {
+                plugins: [
+                        UnpluginComponentsVite({
+                                dts: true,
+                                resolvers: [
+                                        IconsResolver({
+                                                prefix: 'Icon',
+                                        }),
+                                ],
+                        }),
                 ],
-            }),
-        ],
-    },
+        },
 
-    ...
+        ...
 })
 ```
 
