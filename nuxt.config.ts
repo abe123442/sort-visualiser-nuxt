@@ -3,11 +3,11 @@ import { IntlifyModuleOptions } from '@intlify/nuxt3'
 import UnpluginComponentsVite from 'unplugin-vue-components/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 
-declare module '@nuxt/schema' {
-	interface NuxtConfig {
-		intlify?: IntlifyModuleOptions
-	}
-}
+// declare module '@nuxt/schema' {
+// 	interface NuxtConfig {
+// 		intlify?: IntlifyModuleOptions
+// 	}
+// }
 
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
@@ -77,16 +77,6 @@ export default defineNuxtConfig({
 			}),
 		],
 	},
-
-	// localization - i18n config
-	// intlify: {
-	//     localeDir: 'locales',
-	//     vueI18n: {
-	//         locale: 'en',
-	//         fallbackLocale: 'en',
-	//         availableLocales: ['en', 'id', 'ja'],
-	//     },
-	// },
 
 	// vueuse
 	vueuse: {

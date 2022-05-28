@@ -1,5 +1,4 @@
 import { ThemeManager } from './theme'
-import { LanguageManager } from './lang'
 
 export interface IApp {
     name: string
@@ -9,7 +8,7 @@ export interface IApp {
 }
 
 export function AppSetup() {
-    // declare app information
+    // declare app information - IApp is an app information type
     const app: IApp = {
         name: 'simulsort',
         author: {
@@ -21,12 +20,9 @@ export function AppSetup() {
     // use theme manager
     const themeManager = ThemeManager()
 
-    // use language manager
-    const languageManager = LanguageManager()
 
     return {
         app,
         themeManager,
-        languageManager,
     }
 }
