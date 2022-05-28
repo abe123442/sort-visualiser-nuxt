@@ -6,14 +6,15 @@ components:
         change_theme: change theme
 pages:
     index:
+        nav: home
         title: simulsort
-    blank:
-        nav: blank
-        title: blank page
-        just_blank_page_with_title: just blank page with title
-    test:
-        nav: test
-        title: testing
+    learn:
+        nav: learn
+        title: learn
+        just_blank_page_with_title: just learn page with title
+    play:
+        nav: play
+        title: play
         counter: counter
         increment: increment
         decrement: decrement

@@ -1,5 +1,6 @@
 <template>
     <PageWrapper class="flex justify-center items-center">
+        <!-- Background graphics -->
         <div class="background-overlay">
             <div
                 class="absolute top-0 left-0 transform translate-x-64 translate-y-4 h-14 w-14 rounded-full bg-gray-900 dark:bg-white"
@@ -12,6 +13,8 @@
             ></div>
             <div class="absolute bottom-0 right-0 triangle-shape"></div>
         </div>
+
+        <!-- "simulsort" homepage -->
         <div class="flex flex-col z-10">
             <h1 class="text-center">
                 <span
@@ -27,14 +30,15 @@
                     size="lg"
                     text="Learn"
                     class="font-extrabold"
-                    href="https://v3.nuxtjs.org"
+                    :to="mainLinks[0].route ? mainLinks[0].route : undefined"
+                    
                 />
                 <Button
                     size="lg"
                     text="Play"
                     type="secondary"
                     class="font-extrabold"
-                    href="https://github.com/viandwi24/nuxt3-awesome-starter"
+                    :to="mainLinks[1].route ? mainLinks[1].route : undefined"
                 />
             </div>
         </div>
@@ -42,9 +46,23 @@
 </template>
 
 <script lang="ts" setup>
+export interface IMenuItem {
+    type: 'link' | 'button'
+    text: string
+    href?: any
+    route?: any
+}
+
+
 definePageMeta({
     layout: 'page',
 })
+const { t } = useLang()
+
+const mainLinks = computed((): IMenuItem[] => [
+    { type: 'link', text: t('pages.learn.nav'), route: { name: 'learn' } },
+    { type: 'link', text: t('pages.play.nav'), route: { name: 'test' } },
+])
 </script>
 
 <style lang="scss">

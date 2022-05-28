@@ -1,11 +1,11 @@
 <template>
     <PageWrapper>
         <PageHeader>
-            <PageTitle :text="$t('pages.test.title')" class="capitalize" />
+            <PageTitle :text="$t('pages.play.title')" class="capitalize" />
         </PageHeader>
         <PageBody>
             <PageSection>
-                <PageSectionTitle :text="$t('pages.test.counter')" class="capitalize" />
+                <PageSectionTitle :text="$t('pages.play.counter')" class="capitalize" />
                 <div
                     class="flex flex-col items-center justify-items-center space-y-2 lg:space-y-0 lg:flex-row lg:space-x-2"
                 >
@@ -14,39 +14,39 @@
                         class="w-full lg:w-auto capitalize"
                         type="secondary"
                         size="sm"
-                        :text="$t('pages.test.increment')"
+                        :text="$t('pages.play.increment')"
                         @click.prevent="counter.increment"
                     />
                     <Button
                         class="w-full lg:w-auto"
                         type="secondary"
                         size="sm"
-                        :text="`${$t('pages.test.increment')} 2x`"
+                        :text="`${$t('pages.play.increment')} 2x`"
                         @click.prevent="counter.increment2x"
                     />
                     <Button
                         class="w-full lg:w-auto capitalize"
                         type="secondary"
                         size="sm"
-                        :text="$t('pages.test.decrement')"
+                        :text="$t('pages.play.decrement')"
                         @click.prevent="counter.decrement"
                     />
                     <Button
                         class="w-full lg:w-auto capitalize"
                         type="secondary"
                         size="sm"
-                        :text="$t('pages.test.reset')"
+                        :text="$t('pages.play.reset')"
                         @click.prevent="counter.reset"
                     />
                 </div>
             </PageSection>
             <PageSection>
                 <PageSectionTitle
-                    :text="$t('pages.test.identity')"
+                    :text="$t('pages.play.identity')"
                     class="capitalize"
                 />
                 <div>
-                    <span class="capitalize">{{ $t('pages.test.full_name') }} : </span>
+                    <span class="capitalize">{{ $t('pages.play.full_name') }} : </span>
                     <span>{{ identity.fullName }}</span>
                 </div>
                 <div class="">
@@ -57,7 +57,7 @@
                         <FormTextInput v-model="identity.lastName" size="sm" />
                         <Button
                             class="w-full capitalize"
-                            :text="$t('pages.test.reset')"
+                            :text="$t('pages.play.reset')"
                             type="secondary"
                             size="sm"
                             @click.prevent="identity.reset"

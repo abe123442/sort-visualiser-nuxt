@@ -1,13 +1,11 @@
 <template>
     <PageWrapper>
         <PageHeader>
-            <PageTitle :text="$t('pages.blank.title')" class="capitalize" />
+            <PageTitle :text="$t('pages.learn.title')" class="capitalize" />
         </PageHeader>
         <PageBody>
             <PageSection>
-                <div v-for="i in 30" :key="i" class="text-6xl uppercase">
-                    {{ $t('pages.blank.just_blank_page_with_title') }}
-                </div>
+                <SortVisualiser></SortVisualiser>
             </PageSection>
         </PageBody>
     </PageWrapper>
