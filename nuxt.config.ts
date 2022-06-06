@@ -24,7 +24,7 @@ export default defineNuxtConfig({
 					content: 'simulsort',
 				},
 			],
-			link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+			link: [{ rel: 'icon', type: 'image/x-icon', href: '/bar-chart-icon.png' }],
 		},
 	},
 

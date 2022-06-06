@@ -1,0 +1,1 @@
+export const algorithms = ["bubble", "insertion", "selection"];

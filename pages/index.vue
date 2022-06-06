@@ -61,7 +61,7 @@ const { t } = useLang()
 
 const mainLinks = computed((): IMenuItem[] => [
     { type: 'link', text: t('pages.learn.nav'), route: { name: 'learn' } },
-    { type: 'link', text: t('pages.play.nav'), route: { name: 'test' } },
+    { type: 'link', text: t('pages.play.nav'), route: { name: 'play' } },
 ])
 </script>
 

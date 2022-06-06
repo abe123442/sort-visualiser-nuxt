@@ -105,7 +105,8 @@ export default {
 	// note: each property can only be accessed by methods by "this.property"
 	data() {
 		return {
-			algorithm: "",
+			window: { width: 0, height: 0 },
+			algorithm: "bubble",
 			array: [],
 			arraySize: 50,
 			speed: 50,
@@ -115,13 +116,11 @@ export default {
 		};
 	},
 
-
 	// methods used in this module 
 	methods: {
 
 		setAlgorithm(event) {
 			this.algorithm = event.target.value;
-			console.log(`from setAlgorithm: ${this.algorithm}`);
 		},
 
 		// [1] VISUALISER LOGIC 
@@ -171,8 +170,6 @@ export default {
 				default:
 					return;
 			}
-
-			console.log(`still in function`);
 
 			// initialises the data structure to store data through the sort execution
 			this.sortHistory = new LinkedList(this.sorter.next().value);

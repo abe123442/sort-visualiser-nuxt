@@ -21,6 +21,7 @@ pages:
         reset: reset
         identity: identity
         full_name: fullName
+
     about:
         nav: about
         title: about
