@@ -37,8 +37,6 @@
 
 
 		<div class="row">
-			
-
 			<label class="block uppercase tracking-wide text-gray-700 text-2xl font-bold mb-2 linear-wipe-text" for="guess">
 				guess
 			</label>
@@ -73,6 +71,7 @@
 	</div>
 </template>
 <script>
+// import { AppDropdown } from "~~/.nuxt/components";
 import { bubbleSort, insertionSort, selectionSort } from "../utils/algorithms";
 import { LinkedList, pause } from "../utils/helper";
 import { algorithms } from "../stores/GameData";
@@ -87,6 +86,9 @@ Array.prototype.sample = function () {
 // the script that is exported for this 'Visualised.vue' module injected into the main 'App.vue'
 // it can be considered like a class with relevant properties/attributes and methods 
 export default {
+	props: {
+		receiveGuess: String
+	},
 	// initialising the different properties that will be used in this module
 	// note: each property can only be accessed by methods by "this.property"
 	data() {
@@ -104,7 +106,6 @@ export default {
 
 		// updates the variables which are being tracked by vue
 		updateData: function () {
-			this.sortData = this.sortHistory.currentNode.data;
 			this.array = this.sortData.array;
 		},
 

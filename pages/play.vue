@@ -17,7 +17,7 @@
 
             </PageSection>
             <PageSection>
-                <SortGuesser @receiveGuess="userGuess"></SortGuesser>
+                <SortGuesser receiveGuess="userGuess"></SortGuesser>
             </PageSection>
         </PageBody>
     </PageWrapper>

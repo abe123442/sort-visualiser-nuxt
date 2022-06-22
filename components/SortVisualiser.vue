@@ -56,7 +56,7 @@
 				for="sort-controls">
 				debug controls
 			</label>
-			<!-- card group that contains the debug feature data & interactions -->
+			<!-- group that contains the debug feature data & interactions -->
 			<div class="flex flex-wrap gap-x-0.5">
 				<!-- debug button -->
 				<button
