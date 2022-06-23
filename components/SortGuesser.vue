@@ -104,18 +104,6 @@ export default {
 	// methods used in this module 
 	methods: {
 
-		// updates the variables which are being tracked by vue
-		updateData: function () {
-			this.array = this.sortData.array;
-		},
-
-		cleanup: function () {
-			if (Object.keys(this.sortData).length == 0) return;
-
-			this.sortData = {};
-			this.sortHistory.deleteList();
-		},
-
 		submitGuess: function (guess) {
 			this.$emit("receiveGuess", guess);
 		},
@@ -164,14 +152,11 @@ export default {
 		resetArray: function () {
 			if (this.sorting) return;
 			this.array = [...this.original];
-			this.cleanup();
 		},
 
 		randomSort: async function () {
 			let next = this.sorter.next();
 			// runs until the sort generator runs out of value (the array is sorted)
-			console.log(this.sorting);
-			console.log(!next.done);
 			while (!next.done && this.sorting) {
 				// adds the next value to the data structure
 				this.sortHistory.append(next.value);
@@ -183,7 +168,7 @@ export default {
 
 
 				// updates the data which needs to be seen on the website	
-				this.updateData();
+				// this.updateData();
 
 				// getting the next value of the sort generator
 				next = this.sorter.next();
@@ -227,7 +212,7 @@ export default {
 	background-color: #d6d6d6;
 	resize: both;
 	position: relative;
-	transition: all 0.4s ease-in;
+	/* transition: all 0.4s ease-in; */
 }
 
 .bar-current {
@@ -239,7 +224,7 @@ export default {
 	background-color: #28282b;
 	resize: both;
 	position: relative;
-	transition: all 0.4s ease-in;
+	/* transition: all 0.4s ease-in; */
 }
 
 .btn-primary {

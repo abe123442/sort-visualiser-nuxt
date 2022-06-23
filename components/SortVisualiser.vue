@@ -57,33 +57,36 @@
 				debug controls
 			</label>
 			<!-- group that contains the debug feature data & interactions -->
-			<div class="flex flex-wrap gap-x-0.5">
-				<!-- debug button -->
-				<button
-					class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-					type="button" id="btnDebug" @click="toggleDebug()">
-					Debug
-				</button>
-				<!-- previous debug button -->
-				<button type="button"
-					class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-					@click="debugGoBack()" id="prev">
-					Prev
-				</button>
-				<!-- next debug button -->
-				<button type="button"
-					class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-					@click="debugGoNext()" id="next">
-					Next
-				</button>
-			</div>
-			<div class="card-body" id="debug-card">
-				<!-- debug-info contains multiple p tags, each of which contain the value of each data type in sortData -->
-				<div class="debug-info">
-					<p v-for="(item, index) in sortData" :key="item.id">
-						{{ index }}: {{ item }}
-					</p>
+
+			<div
+				class="flex flex-wrap gap-x-0.5 p-6 w-full md:w-1/1 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+				<div class="flex-container column">
+					<!-- debug button -->
+					<button
+						class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+						type="button" id="btnDebug" @click="toggleDebug()">
+						Debug
+					</button>
+					<!-- previous debug button -->
+					<button
+						class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+						@click="debugGoBack()" id="prev">
+						Prev
+					</button>
+					<!-- next debug button -->
+					<button
+						class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+						@click="debugGoNext()" id="next">
+						Next
+					</button>
 				</div>
+				<a href="#">
+					<!-- debug-info contains multiple p tags, each of which contain the value of each data type in sortData -->
+					<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+						v-for="(item, index) in sortData" :key="item.id">
+						{{ index }}: {{ item }}
+					</h5>
+				</a>
 			</div>
 		</div>
 	</div>

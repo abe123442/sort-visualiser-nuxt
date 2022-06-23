@@ -5,7 +5,7 @@
         </PageHeader>
         <PageBody>
             <PageSection>
-                <SortVisualiser></SortVisualiser>
+                <!-- <SortVisualiser></SortVisualiser> -->
             </PageSection>
         </PageBody>
     </PageWrapper>
