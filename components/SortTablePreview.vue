@@ -11,7 +11,6 @@
 
 const props = defineProps({
     array: Array,
-    sortName: String,
     visualValues: {
         type: Object,
         default: {}
@@ -19,12 +18,18 @@ const props = defineProps({
 });
 
 const barClasses = (index) => {
+    if (props.visualValues.finished === true) {
+        return {
+            sorted: true
+        }
+    }
+    console.log(props.visualValues.swap);
     return {
         current: index === props.visualValues.current,
-        swap: index === props.visualValues.swap,
-        sorted: index === props.visualValues.sorted
+        swap: index - 1 === props.visualValues.swap,
+        sorted: index === props.visualValues.sorted,
     }
-}
+};
 
 </script>
 
@@ -51,14 +56,17 @@ const barClasses = (index) => {
 }
 
 .current {
-    background-color: yellow !important;
+    
+    background-color: #0ea5e9 !important;
 }
 
-.swap {
-    background-color: greenyellow !important;
+.swap, .minIndex {
+    background-color: red !important;
+    
 }
 
 .sorted {
-    background-color: blueviolet !important;
+    
+    background-color: #374161 !important;
 }
 </style>

@@ -1,3 +1,4 @@
+<!-- Main page for the website application -->
 <template>
     <PageWrapper class="flex justify-center items-center">
         <!-- Background graphics -->
@@ -79,7 +80,7 @@ const mainLinks = computed((): IMenuItem[] => [
     background-size: 200% auto;
     color: #000;
     background-clip: text;
-    text-fill-color: transparent;
+    // text-fill-color: transparent;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: shine 20s ease infinite;
