@@ -5,42 +5,52 @@
             <PageTitle :text="$t('pages.learn.title')" class="capitalize" />
         </PageHeader>
         <PageBody>
-            <PageSection>
+            <PageSection v-if="ReactiveProps.visible">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <!-- Creates a table heading for every type of sort in the sorts prop in the method "definProps" -->
-                                <th scope="col" class="px-6 py-3" v-for="(item, index) in sorts" :key="index">
+                                <th scope="col" class="px-6 py-3"
+                                    v-for="(item, index) in ['Bubble', 'Selection', 'Insertion']" :key="index">
 
                                     <!-- Passing in values for each SortTableButton-->
-                                    <SortTableButton :name="item" v-on:start-visualiser="initialiseSort">
-                                    </SortTableButton>
+                                    <SortTableButton :name="item" v-on:start-visualiser="initialiseSort" />
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="px-2 py-1">
                                 <td>
-                                    <SortTablePreview :array="bubbleArrayRef" :visual-values="visualValues">
-                                    </SortTablePreview>
+                                    <SortTable :array="bubbleArrayRef" :visual-values="BubbleArrayDataRef" />
                                 </td>
                                 <td>
-                                    <SortTablePreview :array="selectionArrayRef"></SortTablePreview>
+                                    <SortTable :array="selectionArrayRef" :visual-values="SelectionArrayDataRef" />
                                 </td>
                                 <td>
-                                    <SortTablePreview :array="insertionArrayRef"></SortTablePreview>
+                                    <SortTable :array="insertionArrayRef" :visual-values="InsertionArrayDataRef" />
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr class="px-5 py-1">
+                                <td v-for="(item, index) in ['Bubble', 'Selection', 'Insertion']" :key="index">
+                                    <Button :text="'Learn ' + item + ' Sort'" type="primary" class="font-extrabold"
+                                        to="javascript:void(0)" @click="learn(item.toLowerCase())" />
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                 <div class="flex space-x-4 justify-center mt-10">
-                    <Button size="lg" text="Learn" type="primary" class="font-extrabold" to="javascript:void(0)" />
-                    <Button size="lg" text="Play" type="primary" class="font-extrabold" to="javascript:void(0)" />
-                </div>
+            </PageSection>
 
+            <PageSection v-else>
+                <Button :text="'Back to demo'" type="primary" class="font-extrabold" to="javascript:void(0)"
+                    @click="ReactiveProps.toggle">
+                </Button>
+
+                <LearnSort :sort-name="ReactiveProps.algorithm" />
             </PageSection>
         </PageBody>
     </PageWrapper>
@@ -52,83 +62,79 @@
 
 // import { shuffle } from "@/utils/helper.js";
 import { pause, swap } from "@/utils/algorithms.js";
-import { ITheme } from "@/utils/theme"
 // Imports other vue components to be embedded in this component and used
 import SortTableButton from "@/components/SortTableButton.vue";
-import SortTablePreview from "@/components/SortTablePreview.vue";
-import { ref } from 'vue';
+import SortTable from "@/components/SortTable.vue";
+import LearnSort from "@/components/sort.vue";
+import { ref } from "vue";
+import { useReactiveProps } from "@/stores/GameData";
 
-// An interface object used to determine the page links around the website
-export interface IMenuItem {
-    type: 'link' | 'button'
-    text: string
-    href?: any
-    route?: any
-}
-
-const theme = useState<ITheme>('theme.current');
-// defines meta information for this page
+// defines meta information for this page, and defines the "theme" for this page
 definePageMeta({
     layout: 'page',
 })
 
-// defines the properties of this component
-defineProps({
-    sorts: {
-        type: [],
-        default: ["Bubble", "Selection", "Insertion"],
-    }
-});
+const ReactiveProps = useReactiveProps();
 
-
-// Internalisation setup
-
-// currently, this program only has support for "en" languages
-const { t } = useLang()
-
-const mainLinks = computed((): IMenuItem[] => [
-    { type: 'link', text: t('pages.learn.nav') },
-    { type: 'link', text: t('pages.play.nav') },
-])
-
-
-
-const generateArray = (range: number) => {
-    const size = 10;
-    return Array.from({ length: size }, () => Math.floor(Math.random() * range) + 5);
+const learn = (sort: string) => {
+    ReactiveProps.setAlgorithm(sort);
+    ReactiveProps.toggle();
+}
+// An object instance definition (WITH optional parameters filled appropriately) of object structure that will be used to pass the data to the SortTableButton component, showing visual aspects
+interface IElementStyle {
+    current?: boolean,
+    sorted?: boolean,
+    finished?: boolean,
+    swap?: boolean
 }
 
-let array: number[] = [];
-const range = 200;
-array = generateArray(range);
+interface IArrayElement {
+    item: number,
+    style: IElementStyle
+}
 
-const bubbleArray = [...array];
-const insertionArray = [...array];
-const selectionArray = [...array];
+
+const range = 200;
+const RandomArray = Array.from({ length: 10 }, () => Math.floor(Math.random() * range) + 5);
+
+// this is an instance of the ISortData interface
+const ArrayData: IArrayElement[] = [];
+
+const SetupArrayData = () => {
+    for (let index = 0; index < RandomArray.length; index++) {
+        let ArrayElement: IArrayElement = {
+            item: RandomArray[index],
+            style: {
+                current: false,
+                sorted: false,
+                finished: false,
+                swap: false
+            }
+        };
+        ArrayData[index] = ArrayElement;
+    }
+};
+
+SetupArrayData();
+const BubbleArrayData = [...ArrayData];
+const InsertionArrayData = [...ArrayData];
+const SelectionArrayData = [...ArrayData];
+
+// this is a reactive variable that reacts to changes in the ArrayData variable, so that visual elements can be updated (e.g in terms of styles)
+// const ArrayDataRef = ref(BubbleArrayData);
+const BubbleArrayDataRef = ref(BubbleArrayData);
+const InsertionArrayDataRef = ref(InsertionArrayData);
+const SelectionArrayDataRef = ref(SelectionArrayData);
+
+const bubbleArray = [...RandomArray];
+const insertionArray = [...RandomArray];
+const selectionArray = [...RandomArray];
 
 const bubbleArrayRef = ref(bubbleArray);
 const insertionArrayRef = ref(insertionArray);
 const selectionArrayRef = ref(selectionArray);
 
 
-// An object instance definition (WITH optional parameters filled appropriately) of object structure that will be used to pass the data to the SortTableButton component, showing visual aspects
-interface ISortData {
-    current?: number,
-    sorted?: number,
-    finished?: boolean,
-    swap?: number
-}
-
-interface ElementInfo {
-    element: number,
-    style: ISortData
-}
-
-// this is an instance of the ISortData interface
-const sortData: ISortData = {};
-
-// this is a reactive variable that reacts to changes in the sortData variable, so that visual elements can be updated (e.g in terms of styles)
-const visualValues = ref(sortData);
 
 // entry function that runs the appropriate sorting algorithm to be visualised
 const initialiseSort = (algorithm: String) => {
@@ -147,34 +153,36 @@ const initialiseSort = (algorithm: String) => {
     }
 }
 
+
 // standard bubble sort function with appropriate modifications
 async function bubbleSort(array: number[]) {
-    console.log(array);
-    var indexLength = array.length;
-    var swapCounter = -1;
+    let indexLength = array.length;
+    let swapCounter = -1;
     while (swapCounter != 0) {
 
         swapCounter = 0;
         for (let i = 0; i < indexLength; i++) {
 
-            // sets the optional current parameter to the sortData (ISortData interface instance) object, which will reactively be passed into the appropriate SortTablePreview component
-            sortData.current = i
+            // sets the optional current parameter to the ArrayData (ISortData interface instance) object, which will reactively be passed into the appropriate SortTable component
+            if (i !== 0) { BubbleArrayData[i - 1].style.current = false; }
+            BubbleArrayData[i].style.current = true;
+
             if (array[i] > array[i + 1]) {
-                sortData.swap = i;
+                // if (i !== 0) { BubbleArrayData[i-1].style.swap = false; }
+                // BubbleArrayData[i].style.swap = true;
                 swap(array, i, i + 1);
+                swap(BubbleArrayData, i, i + 1);
                 swapCounter += 1;
                 await pause(500);
             }
         }
         indexLength -= 1;
-        sortData.sorted = indexLength;
+        BubbleArrayData[indexLength].style.sorted = true;
     }
-
-    // pauses the bubble sort to allow visualisation of the array elements
     await pause(50);
-    sortData.finished = true;
-    // this needed to be included to allow the visuals to be updated, showing that the array is completely sorted
-    array[array.length] = array[array.length];
+    for (let j = 0; j < array.length; j++) {
+        BubbleArrayData[indexLength].style.sorted = true;
+    }
 }
 
 // standard selection sort algorithm with appropriate modifications
@@ -182,14 +190,14 @@ async function selectionSort(array: number[]) {
     for (let i = 0; i < array.length - 1; i++) {
         let minIndex = i;
         for (let j = i + 1; j < array.length + 1; j++) {
-            sortData.current = j;
-            console.log(sortData["current"]);
+            SelectionArrayData[j].style.current = true;
             if (j != array.length && array[j] < array[minIndex]) {
                 minIndex = j;
                 await pause(500);
             }
         }
         swap(array, i, minIndex);
+        swap(SelectionArrayData, i, minIndex);
     }
 }
 
@@ -204,14 +212,15 @@ async function insertionSort(array: number[]) {
         j = i;
 
         while (j > 0 && array[j - 1] > value) {
-            console.log(j);
-            // 
-            sortData.current = j;
+            ArrayData[j].style.current = true;
             array[j] = array[j - 1];
+            ArrayData[j].style = ArrayData[j - 1].style = { swap: true }
+            ArrayData[j].item = ArrayData[j - 1].item;
             j -= 1;
             await pause(100);
         }
         array[j] = value;
+        ArrayData[j].item = value;
     }
 }
 </script>

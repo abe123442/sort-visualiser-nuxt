@@ -2,18 +2,23 @@ import { defineStore } from 'pinia';
 
 
 export const algorithms = ["bubble", "insertion", "selection"];
-
-export interface IAppUseState {
-	used: boolean
+export let currentAlgorithm: string;
+export interface IReactiveProps {
+	visible: boolean,
+	algorithm: string
 };
 
-export const useStateCounter = defineStore('useCounter', {
-	state: (): IAppUseState => ({
-		used: false,
+export const useReactiveProps = defineStore('visibility', {
+	state: (): IReactiveProps => ({
+		visible: true,
+		algorithm: ""
 	}),
 	actions: {
 		toggle() {
-			this.used = !this.used;
+			this.visible = !this.visible;
+		},
+		setAlgorithm(name: string) {
+			this.algorithm = name;
 		}
 	}
 });

@@ -2,33 +2,46 @@
     <div class="array-container">
         <template v-for="(number, index) in array" :key="index">
             <div class="bar" :class="barClasses(index)" :style="{ height: number + 'px' }"></div>
+            <!-- <div class="bar" :class="`current`" :style="{ height: number + 'px' }"></div> -->
         </template>
 
     </div>
 </template>
 <script setup>
 
-
 const props = defineProps({
     array: Array,
-    visualValues: {
-        type: Object,
-        default: {}
-    },
+    visualValues: Array
 });
 
+
+// const barClasses = (index) => {
+//     if (props.visualValues[index].style.finished === true) {
+//         return {
+//             sorted: true
+//         }
+//     }
+//     return {
+//         current: props.visualValues[index].style.current,
+//         swap: props.visualValues[index - 1].style.swap,
+//         sorted: props.visualValues[index].style.sorted,
+//     }
+// };
 const barClasses = (index) => {
-    if (props.visualValues.finished === true) {
-        return {
+    let styles = {};
+    if (props.visualValues[index].style.finished === true) {
+        styles = {
             sorted: true
         }
+
+    } else {
+        styles = {
+            current: props.visualValues[index].style.current,
+            // swap: index === 0? false: props.visualValues[index - 1].style.swap,
+            sorted: props.visualValues[index].style.sorted,
+        }
     }
-    console.log(props.visualValues.swap);
-    return {
-        current: index === props.visualValues.current,
-        swap: index - 1 === props.visualValues.swap,
-        sorted: index === props.visualValues.sorted,
-    }
+    return styles;
 };
 
 </script>
@@ -56,17 +69,18 @@ const barClasses = (index) => {
 }
 
 .current {
-    
+
     background-color: #0ea5e9 !important;
 }
 
-.swap, .minIndex {
+.swap,
+.minIndex {
     background-color: red !important;
-    
+
 }
 
 .sorted {
-    
+
     background-color: #374161 !important;
 }
 </style>
