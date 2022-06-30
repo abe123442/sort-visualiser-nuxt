@@ -14,6 +14,13 @@
                     <td><h1 class="text-lg text-gray-700 font-medium dark:text-gray-400">SIMULSORT is intended to be a visual tool to help students learn various sorting algorithms. First version of SIMULSORT is focussing on 3 techniques - Bubble, Selection and Insertion </h1></td>
                 </tr>
 
+                <tr >
+                    <td><h1 class="mt-10 mb-5 text-xl text-gray-700 font-black uppercase dark:text-gray-400"> Detailed Manual</h1></td>
+                </tr>
+                   <tr >
+                    <td><h1 class="text-lg text-gray-700 font-medium dark:text-gray-400">Click <a href="https://sites.google.com/view/simulsort-helpcenter/home" class="text-decoration-line: underline underline-offset-4">here</a> to access installation guide, FAQ and Trouble shooting </h1></td>
+                </tr>
+
                  <tr >
                     <td><h1 class="mt-10 mb-5 text-xl text-gray-700 font-black uppercase dark:text-gray-400"> Learn</h1></td>
                 </tr>
