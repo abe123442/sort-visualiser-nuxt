@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 
 
-export const algorithms = ["bubble", "insertion", "selection"];
+export const algorithmNames = ["bubble", "insertion", "selection"];
 export let currentAlgorithm: string;
 export interface IReactiveProps {
 	visible: boolean,

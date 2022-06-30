@@ -74,7 +74,7 @@
 // import { AppDropdown } from "~~/.nuxt/components";
 import { bubbleSort, insertionSort, selectionSort } from "../utils/algorithms";
 import { LinkedList, pause } from "../utils/helper";
-import { algorithms } from "../stores/GameData";
+import { algorithmNames } from "../stores/GameData";
 
 
 // adds the "sample" method to all array objects -> returns a random element of that array
@@ -129,7 +129,7 @@ export default {
 			this.sorting = true;
 
 			// checks the algorithm type and sets up the generator accordingly
-			switch (algorithms.sample()) {
+			switch (algorithmNames.sample()) {
 				// 'this.sorter' is a generator that stores the values of each pass of a sorting algorithm
 				// each case assigns a different generator to 'this.sorter' based on the chosen algorithm
 				case "bubble":

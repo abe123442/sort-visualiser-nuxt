@@ -29,16 +29,16 @@ const props = defineProps({
 // };
 const barClasses = (index) => {
     let styles = {};
-    if (props.visualValues[index].style.finished === true) {
+    if (props.visualValues[index].finished === true) {
         styles = {
             sorted: true
         }
 
     } else {
         styles = {
-            current: props.visualValues[index].style.current,
+            current: props.visualValues[index].current,
             // swap: index === 0? false: props.visualValues[index - 1].style.swap,
-            sorted: props.visualValues[index].style.sorted,
+            sorted: props.visualValues[index].sorted,
         }
     }
     return styles;

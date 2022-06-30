@@ -61,7 +61,8 @@
 // Required imports for this component
 
 // import { shuffle } from "@/utils/helper.js";
-import { pause, swap } from "@/utils/algorithms.js";
+import { pause, swap } from "@/utils/helper.js";
+
 // Imports other vue components to be embedded in this component and used
 import SortTableButton from "@/components/SortTableButton.vue";
 import SortTable from "@/components/SortTable.vue";
@@ -88,34 +89,27 @@ interface IElementStyle {
     swap?: boolean
 }
 
-interface IArrayElement {
-    item: number,
-    style: IElementStyle
-}
-
 
 const range = 200;
 const RandomArray = Array.from({ length: 10 }, () => Math.floor(Math.random() * range) + 5);
 
 // this is an instance of the ISortData interface
-const ArrayData: IArrayElement[] = [];
+const ArrayData: IElementStyle[] = [];
 
 const SetupArrayData = () => {
     for (let index = 0; index < RandomArray.length; index++) {
-        let ArrayElement: IArrayElement = {
-            item: RandomArray[index],
-            style: {
-                current: false,
-                sorted: false,
-                finished: false,
-                swap: false
-            }
+        let ArrayElement: IElementStyle = {
+            current: false,
+            sorted: false,
+            finished: false,
+            swap: false
         };
         ArrayData[index] = ArrayElement;
     }
 };
 
 SetupArrayData();
+
 const BubbleArrayData = [...ArrayData];
 const InsertionArrayData = [...ArrayData];
 const SelectionArrayData = [...ArrayData];
@@ -164,8 +158,8 @@ async function bubbleSort(array: number[]) {
         for (let i = 0; i < indexLength; i++) {
 
             // sets the optional current parameter to the ArrayData (ISortData interface instance) object, which will reactively be passed into the appropriate SortTable component
-            if (i !== 0) { BubbleArrayData[i - 1].style.current = false; }
-            BubbleArrayData[i].style.current = true;
+            if (i !== 0) { BubbleArrayData[i - 1].current = false; }
+            BubbleArrayData[i].current = true;
 
             if (array[i] > array[i + 1]) {
                 // if (i !== 0) { BubbleArrayData[i-1].style.swap = false; }
@@ -177,11 +171,11 @@ async function bubbleSort(array: number[]) {
             }
         }
         indexLength -= 1;
-        BubbleArrayData[indexLength].style.sorted = true;
+        BubbleArrayData[indexLength].sorted = true;
     }
     await pause(50);
     for (let j = 0; j < array.length; j++) {
-        BubbleArrayData[indexLength].style.sorted = true;
+        BubbleArrayData[indexLength].sorted = true;
     }
 }
 
@@ -190,7 +184,7 @@ async function selectionSort(array: number[]) {
     for (let i = 0; i < array.length - 1; i++) {
         let minIndex = i;
         for (let j = i + 1; j < array.length + 1; j++) {
-            SelectionArrayData[j].style.current = true;
+            SelectionArrayData[j].current = true;
             if (j != array.length && array[j] < array[minIndex]) {
                 minIndex = j;
                 await pause(500);
@@ -212,15 +206,13 @@ async function insertionSort(array: number[]) {
         j = i;
 
         while (j > 0 && array[j - 1] > value) {
-            ArrayData[j].style.current = true;
+            ArrayData[j].current = true;
             array[j] = array[j - 1];
-            ArrayData[j].style = ArrayData[j - 1].style = { swap: true }
-            ArrayData[j].item = ArrayData[j - 1].item;
+            ArrayData[j] = ArrayData[j - 1] = { swap: true }
             j -= 1;
             await pause(100);
         }
         array[j] = value;
-        ArrayData[j].item = value;
     }
 }
 </script>

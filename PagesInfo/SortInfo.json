@@ -1,41 +1,27 @@
 {
     "bubble": {
-        "title": "Learn Bubble Sort",
-        "states": {
-            "0": "Starting Bubble Sort",
-            "1": "For each pass, we will move left to right swapping adjacent elements as needed. Each pass moves the next largest element into its final position (these will be shown in green).",
-            "2": "Starting pass ",
-            "3": "For each element moving through the list",
-            "4": "Compare elements",
-            "5": "Swap",
-            "6": "Pass complete. The last element processed is now in its final position.",
-            "7": "Done sorting!"
-        }
+        "0": "For each pass, we will move left to right swapping adjacent elements as needed. Each pass moves the next largest element into its final position (these will be shown in green).",
+        "1": "For each element moving through the list, compare the element on its right",
+        "2": "Swap",
+        "3": "Pass complete. The last element processed is now in its final position.",
+        "4": "Done sorting!"
     },
     "selection": {
-        "title": "Learn Selection Sort",
-        "states": {
-            "0": "Starting Selection Sort",
-            "1": "For each pass, we will move left to right looking for the next largest value. Once that is found, it will be swapped into its final position (these will be shown in lighter color).",
-            "2": "Starting pass ",
-            "3": "Initialize bigindex.",
-            "4": "For each element moving through the list: the biggest seen so far is always red.",
-            "5": "Compare to biggest value",
-            "6": "Found something bigger, so switch value of bigindex.",
-            "7": "Swap the next biggest value in place.",
-            "8": "Pass complete.",
-            "9": "Done sorting!"
-        }
+        "0": "For each pass, we will move left to right looking for the next largest value. Once that is found, it will be swapped into its final position (these will be shown in lighter color).",
+        "1": "Starting pass ",
+        "2": "Initialize bigindex.",
+        "3": "For each element moving through the list: the biggest seen so far is always red.",
+        "4": "Compare to biggest value",
+        "5": "Found something bigger, so switch value of bigindex.",
+        "6": "Swap the next biggest value in place.",
+        "7": "Pass complete.",
+        "8": "Done sorting!"
     },
     "insertion": {
-        "title": "Learn Insertion Sort",
-        "states": {
-            "0": "Starting Bubble Sort",
-            "1": "Highlighted green records to the left are always sorted. We begin with the record in position 0 in the sorted portion, and we will be moving the record in position 1 (in blue) to the left until it is sorted.",
-            "2": "Processing record in position ",
-            "3": "Move the blue record to the left until it reaches the correct position.",
-            "4": "Swap",
-            "5": "Done sorting!"
-        }
+        "0": "Highlighted green records to the left are always sorted. We begin with the record in position 0 in the sorted portion, and we will be moving the record in position 1 (in blue) to the left until it is sorted.",
+        "1": "Processing record in position ",
+        "2": "Move the blue record to the left until it reaches the correct position.",
+        "3": "Swap",
+        "4": "Done sorting!"
     }
 }

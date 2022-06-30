@@ -27,6 +27,11 @@ async function pause(speed) {
     });
 }
 
+function swap(array, i, j) {
+    [array[i], array[j]] = [array[j], array[i]]
+}
+
+
 /**
  * @classdesc Object that links to previous and next nodes
 */
@@ -68,4 +73,4 @@ class LinkedList {
     }
 }
 
-export { LinkedNode, LinkedList, pause, shuffle};
+export { LinkedNode, LinkedList, pause, shuffle, swap};
