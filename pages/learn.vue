@@ -35,7 +35,7 @@
                         <tbody>
                             <tr class="px-5 py-1">
                                 <td v-for="(item, index) in ['Bubble', 'Selection', 'Insertion']" :key="index">
-                                    <Button :text="'Learn ' + item + ' Sort'" type="primary" class="font-extrabold"
+                                    <Button :text="'Explore ' + item + ' Sort'" type="primary" class="font-extrabold"
                                         to="javascript:void(0)" @click="learn(item.toLowerCase())" />
                                 </td>
                             </tr>
