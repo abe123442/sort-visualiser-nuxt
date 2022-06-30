@@ -45,7 +45,7 @@
                 </tr>
 
                  <tr>
-                    <td><img src="../assets/images/help/learn-img-04.png" class="border-2 border-sky-200 my-5 py-5 w-full"/></td>
+                    <td><img src="@/assets/images/help/learn-img-04.png" class="border-2 border-sky-200 my-5 py-5 w-full"/></td>
                 </tr>
 
 
