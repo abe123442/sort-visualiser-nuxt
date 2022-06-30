@@ -11,13 +11,19 @@
 		</div>
 
 		<div class="row">
-			<div class="flex flex-wrap -mx-3 mb-2 " id="sort-controls">
-
-				<div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-					<div class="relative">
-					</div>
+			<label class="block uppercase tracking-wide text-gray-700 text-2xl font-bold mb-2 linear-wipe-text"
+				for="sort-controls">
+				simulsort controls
+			</label>
+			<div class="flex flex-wrap -mx-3 mb-2" id="sort-controls">
+				<div class="w-1/3 px-3 mb-6 md:mb-0 ">
+					<button type="button"
+						class="bg-blue-500 w-1/1 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+						@click="generateArray()">
+						Generate Array
+					</button>
 				</div>
-				<div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+				<div class="w-1/3 px-3 mb-6 md:mb-0">
 					<button type="button"
 						class="bg-blue-500 w-1/1 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
 						@click="initialiseSort()">
@@ -27,37 +33,42 @@
 			</div>
 		</div>
 
-		<div class="row" v-if="sorting">
+		<div class="row">
+			<label class="block uppercase tracking-wide text-gray-700 text-2xl font-bold mb-2 linear-wipe-text"
+				for="sort-controls">
+				debug controls
+			</label>
 			<!-- group that contains the debug feature data & interactions -->
 
 			<div
 				class="flex flex-wrap gap-x-0.5 p-6 w-full md:w-1/1 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-				<div class="flex-container column">
-					<!-- previous debug button -->
+				<div class="flex-container row">
 					<button
-						class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+						class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-10 border-b-4 border-blue-700 hover:border-blue-500 rounded"
 						@click="debugGoBack()" id="prev">
 						Prev
 					</button>
-				</div>
-				<div class="flex-container column">
-					<a href="#">
-						<!-- debug-info contains multiple p tags, each of which contain the value of each data type in sortData -->
-						<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-							v-for="(item, index) in sortData" :key="item.id">
-							{{ index }}: {{ item }}
-						</h5>
-					</a>
-				</div>
 
-				<div class="flex-container column">
+					<!-- debug button -->
+					<button
+						class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-10 border-b-4 border-blue-700 hover:border-blue-500 rounded mx-10"
+						type="button" id="btnDebug" @click="toggleDebug()">
+						Pause
+					</button>
+					<!-- previous debug button -->
+
 					<!-- next debug button -->
 					<button
-						class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+						class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-10 border-b-4 border-blue-700 hover:border-blue-500 rounded"
 						@click="debugGoNext()" id="next">
 						Next
 					</button>
 				</div>
+				<br>
+
+
+			</div>
+			<div class="flex-container row">
 				<a href="#">
 					<!-- debug-info contains multiple p tags, each of which contain the value of each data type in sortData -->
 					<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
@@ -66,216 +77,213 @@
 					</h5>
 				</a>
 			</div>
+
 		</div>
 	</div>
 </template>
+<script>
+import { bubbleSort, insertionSort, selectionSort } from "../utils/algorithms";
+import { LinkedList, pause } from "../utils/helper";
 
-<script setup>
-import { swap, LinkedList } from "../utils/helper";
-import { ref } from "vue";
 
-const props = defineProps({
-	arraySize: {
-		type: Number,
-		required: true
+// the script that is exported for this 'Visualised.vue' module injected into the main 'App.vue'
+// it can be considered like a class with relevant properties/attributes and methods 
+export default {
+	props: {
+		arraySize: {
+			type: Number,
+			required: true
+		},
+		algorithm: {
+			type: String,
+			required: true
+		}
 	},
 
-	algorithm: {
-		type: String,
-		required: true
+	// initialising the different properties that will be used in this module
+	// note: each property can only be accessed by methods by "this.property"
+	data() {
+		return {
+			window: { width: 0, height: 0 },
+			array: [],
+			speed: 200,
+			debugging: false,
+			sorting: false,
+			sortData: {},
+		};
 	},
 
-	sortState: {
-		type: Number
-	}
-});
+	// methods used in this module 
+	methods: {
 
-const window = ref({ width: 0, height: 0 });
-const speed = ref(50);
-const array = ref([]);
-const arraySizeRef = ref(props.arraySize);
-const sorting = ref(false);
-const debugging = ref(true);
-const sortData = ref({});
-const sortHistory = ref();
-const sortState = ref(0);
-const sorter = ref();
+		setAlgorithm(event) {
+			this.algorithm = event.target.value;
+		},
 
-function* bubbleSort(array) {
-	
-	var indexLength = array.length;
-	var swapCounter = -1;
-	while (swapCounter != 0) {
+		// [1] VISUALISER LOGIC 
 
-		swapCounter = 0;
-		for (let i = 0; i < indexLength; i++) {
-			yield {
-				"array": Object.values(array), /* Fixed the assignment bug. Changed it from "assignment by reference" to "assignment by value" */
-				"i": i,
-				"swapCounter": swapCounter,
-				"indexLength": indexLength
-			};
-			if (array[i] > array[i + 1]) {
-				swap(array, i, i + 1);
-				swapCounter += 1;
+
+		// updates the variables which are being tracked by vue
+		// the 'array-container' div is directly linked to any mutations of the 'array' property in data() 
+		updateData() {
+			this.sortData = this.sortHistory.currentNode.data;
+			this.array = this.sortData.array;
+		},
+
+		// generates an array of length 'this.arraySize', where each element is a random integer between 5 and 380
+		generateArray() {
+			// prevents a new array from being generated while a sort is being run
+			if (this.sorting) return;
+
+			// cleans up any data from any previous algorithm executions
+			this.cleanup();
+			for (let i = 0; i < this.arraySize; i++) {
+				this.array[i] = Math.floor(Math.random() * 375) + 5;
 			}
-		}
-		indexLength -= 1;
-	}
-}
+		},
 
-function* insertionSort(array) {
-	let j;
-	let value;
+		// the entry point that sets up relevant data structures and variables for all sorting algorithms
+		initialiseSort() {
+			// prevents the sort from running if another algorithm is already running
+			if (this.sorting) return;
 
 
-	for (let i = 1; i < array.length; i++) {
-		value = array[i];
-		j = i;
+			// sets the boolean to true so that this.normalSort() will execute
+			this.sorting = true;
 
-		while (j > 0 && array[j - 1] > value) {
-			yield {
-				"array": Object.values(array),
-				"value": value,
-				"j": j,
-				"i": i
-			};
-			array[j] = array[j - 1];
-			j -= 1;
-		}
-		array[j] = value;
-	}
-}
-
-function* selectionSort(array) {
-	for (let i = 0; i < array.length - 1; i++) {
-		let minIndex = i;
-		for (let j = i + 1; j < array.length + 1; j++) {
-			yield {
-				"array": Object.values(array),
-				"minIndex": minIndex,
-				"j": j,
-				"i": i
-			};
-			if (j != array.length && array[j] < array[minIndex]) {
-				minIndex = j;
+			// checks the algorithm type and sets up the generator accordingly
+			switch (this.algorithm) {
+				// 'this.sorter' is a generator that stores the values of each pass of a sorting algorithm
+				// each case assigns a different generator to 'this.sorter' based on the chosen algorithm
+				case "bubble":
+					this.sorter = bubbleSort(this.array);
+					break;
+				case "insertion":
+					this.sorter = insertionSort(this.array);
+					break;
+				case "selection":
+					this.sorter = selectionSort(this.array);
+					break;
+				default:
+					return;
 			}
-		}
-		swap(array, i, minIndex);
-	}
-}
 
-const initialiseSort = () => {
-	// prevents the sort from running if another algorithm is already running
-	if (debugging.value) return;
+			// initialises the data structure to store data through the sort execution
+			this.sortHistory = new LinkedList(this.sorter.next().value);
+			// runs the 'normal' sort that will only stop once the array is sorted
+			this.normalSort();
+		},
 
-	// checks the algorithm type and sets up the generator accordingly
-	switch (props.algorithm) {
-		// 'this.sorter' is a generator that stores the values of each pass of a sorting algorithm
-		// each case assigns a different generator to 'this.sorter' based on the chosen algorithm
-		case "bubble":
-			sorter.value = bubbleSort(array);
-			break;
-		case "insertion":
-			sorter.value = insertionSort(array);
-			break;
-		case "selection":
-			sorter.value = selectionSort(array);
-			break;
-		default:
-			return;
-	}
-	// initialises the data structure to store data through the sort execution
-	sortHistory.value = new LinkedList(sorter.value.next().value);
-	// runs the 'normal' sort that will only stop once the array is sorted
-	debugSort();
-}
+		// main sort function that allows complete visualisation of a sort algorithm
+		normalSort: async function () {
 
-const updateData = () => {
-	sortData.value = sortHistory.value.currentNode.data;
-	array.value = sortData.value.array;
-}
+			// runs until the array is sorted or debug mode is enabled
+			while (this.sorting) {
 
-const cleanup = () => {
-	if (Object.keys(sortData.value).length == 0) return;
-	sortData.value = {};
-	sortHistory.value.deleteList();
-}
+				// runs if the user has stepped backwards and is now resuming the sort visualisation
+				if (this.sortHistory.lastNode != this.sortHistory.currentNode) {
+					this.sortHistory.traverseForward();
+				}
 
-async function debugSort() {
-	let next = sorter.value.next();
+				// runs if new data is being requested from the sort, i.e., new "passes" of the sort are occuring
+				else {
+					// gets the next value of the sorter generator
+					let next = this.sorter.next();
 
-}
+					// checks if the generator is exhausted of values, i.e., the array is fully sorted
+					if (next.done) {
+						// console.log(`done`);
+						this.sorting = false;
+						this.updateData();
+						this.cleanup();
+						return; // 'normalSort' is finished here
+					} else {
+						// adds the next value to the data structure
+						this.sortHistory.append(next.value);
+						// sets the current "pass" variable info
+						this.sortHistory.traverseForward();
+					}
+
+				}
+				// delays for a time period to show how the array is changing during sorting
+				await pause(this.speed);
 
 
+				this.updateData();
 
-// toggles when the debug button is clicked to start/resume sorting 
-const toggleDebug = () => {
-	// checks if the sorting has started
-	if (!debugging.value && !sorting.value) return;
+			}
+		},
 
-	debugging.value = !debugging.value;
+		// toggles when the debug button is clicked to start/resume sorting 
+		toggleDebug() {
+			// checks if the sorting has started
+			if (!this.debugging && !this.sorting) return;
 
-	// stops the execution of normalSort() if sorting is true
-	if (sorting.value) {
-		sorting.value = false;
-	} else {
-		sorting.value = true;
-		this.normalSort();
-	}
-}
+			this.debugging = !this.debugging;
 
-// goes back one "pass" of the sorting algorithm and changes 'watched' properties
-const debugGoBack = () => {
-	if (!debugging.value) return;
+			// stops the execution of normalSort() if sorting is true
+			if (this.sorting) {
+				this.sorting = false;
+			} else {
+				this.sorting = true;
+				this.normalSort();
+			}
+		},
 
-	sortHistory.value.traverseBack();
-	sortData.value = sortHistory.value.currentNode.data;
-	array.value = sortData.value.array;
-}
+		// goes back one "pass" of the sorting algorithm and changes 'watched' properties
+		debugGoBack() {
+			if (!this.debugging) return;
 
-// goes forward one "pass" of the sorting algorithm and changes 'watched' properties
-const debugGoNext = () => {
-	if (!debugging.value) return;
-	// runs if the next "pass" of the algorithm is not yet stored in the sortHistory data structure 
-	if (!sortHistory.value.currentNode.next) {
-		let next = sorter.value.next();
-		if (next.done) { return; } else { sortHistory.value.append(next.value); }
-	}
-	// updates the variables which are being tracked by vue
-	// the 'array-container' div is directly linked to any mutations of the 'array' property in data() 
-	sortHistory.value.traverseForward();
-	sortData.value = sortHistory.value.currentNode.data;
-	array.value = sortData.value.array;
-}
+			this.sortHistory.traverseBack();
+			this.sortData = this.sortHistory.currentNode.data;
+			this.array = this.sortData.array;
+		},
 
-const generateArray = (size) => {
-	for (let i = 0; i < size; i++) {
-		array.value[i] = Math.floor(Math.random() * 375) + 5;
-	}
-}
+		// goes forward one "pass" of the sorting algorithm and changes 'watched' properties
 
-// onMounted(() => {
-// 	console.log(props.sortInfo.info[props.sortInfo.sortState]);
-// 	props.sortInfo.UpdateSortState();
-// 	console.log(props.sortInfo.info[props.sortInfo.sortState]);
-// });
+		debugGoNext() {
+			if (!this.debugging) return;
 
-watch(
-	() => props.arraySize,
-	(newValue) => {
-		array.value.length = newValue;
-		generateArray(newValue);
+			// runs if the next "pass" of the algorithm is not yet stored in the sortHistory data structure 
+			if (!this.sortHistory.currentNode.next) {
+				let next = this.sorter.next();
+
+				if (next.done) { return; } else { this.sortHistory.append(next.value); }
+			}
+
+			// updates the variables which are being tracked by vue
+			// the 'array-container' div is directly linked to any mutations of the 'array' property in data() 
+			this.sortHistory.traverseForward();
+			this.sortData = this.sortHistory.currentNode.data;
+			this.array = this.sortData.array;
+		},
+
+		// [2] UI LOGIC
+
+		cleanup() {
+			if (Object.keys(this.sortData).length == 0) return;
+
+			this.sortData = {};
+			this.sortHistory.deleteList();
+		},
+
 	},
-	{ immediate: true }
-);
 
-watch(
-	() => props.sortState,
-	(newValue) => sortState = newValue
-)
+	watch: {
+		arraySize: {
+			handler(newValue) {
+				this.array.length = this.arraySize;
+				this.generateArray();
+			},
+			immediate: true
+		}
+	},
 
-
+	// executes when this 'Visualiser.vue' component is loaded in the main 'App.vue' component
+	mounted() {
+		this.generateArray();
+	},
+};
 </script>
 <!-- the style is scoped to prevent overwriting the main app's styling -->
 <style scoped>

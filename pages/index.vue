@@ -34,13 +34,6 @@
                     :to="mainLinks[0].route ? mainLinks[0].route : undefined"
                     
                 />
-                <Button
-                    size="lg"
-                    text="Play"
-                    type="secondary"
-                    class="font-extrabold"
-                    :to="mainLinks[1].route ? mainLinks[1].route : undefined"
-                />
             </div>
         </div>
     </PageWrapper>
