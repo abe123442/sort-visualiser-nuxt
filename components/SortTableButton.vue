@@ -6,6 +6,7 @@
 		<svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 h-4 mr-2" viewBox="0 0 24 24">
 			<path d="M2 24v-24l20 12-20 12z" />
 		</svg>
+		<!-- using vue again to set the name of the as Name -->
 		<span>{{ name }}</span>
 	</button>
 </template>
@@ -18,5 +19,6 @@ defineProps({
 	},
 });
 
+// Defines the emit for this button component
 defineEmits(["start-visualiser"]);
 </script>

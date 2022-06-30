@@ -17,13 +17,16 @@
 			</label>
 			<div class="flex flex-wrap -mx-3 mb-2" id="sort-controls">
 				<div class="w-1/3 px-3 mb-6 md:mb-0 ">
+					<!-- Creates a button that, when clicked executes the generateArray function -->
 					<button type="button"
 						class="bg-blue-500 w-1/1 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
 						@click="generateArray()">
 						Generate Array
 					</button>
 				</div>
+
 				<div class="w-1/3 px-3 mb-6 md:mb-0">
+					<!-- Creates a button that, when clicked executes the initialiseSort function -->
 					<button type="button"
 						class="bg-blue-500 w-1/1 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
 						@click="initialiseSort()">
@@ -72,8 +75,8 @@
 				</div>
 				<br>
 
-
 			</div>
+			<br><br>
 			<div class="flex-container row">
 				<a href="#">
 					<!-- debug-info contains multiple p tags, each of which contain the value of each data type in sortData -->

@@ -4,6 +4,8 @@ function swap(array, i, j) {
     [array[i], array[j]] = [array[j], array[i]]
 }
 
+// standard algorithm modified to yield sort variables at the 2nd nested loop level
+// yield is a way of getting information by specifically asking for .nex() on a generator. this sort is a generator
 function* bubbleSort(array) {
     var indexLength = array.length;
     var swapCounter = -1;
@@ -26,6 +28,8 @@ function* bubbleSort(array) {
     }
 }
 
+// standard algorithm modified to yield sort variables at the 2nd nested loop level
+// yield is a way of getting information by specifically asking for .nex() on a generator. this sort is a generator
 function* insertionSort(array) {
     let j;
     let value;
@@ -49,10 +53,13 @@ function* insertionSort(array) {
     }
 }
 
+// standard algorithm modified to yield sort variables at the 2nd nested loop level
+// yield is a way of getting information by specifically asking for .nex() on a generator. this sort is a generator
 function* selectionSort(array) {
     for (let i = 0; i < array.length - 1; i++) {
         let minIndex = i;
         for (let j = i + 1; j < array.length + 1; j++) {
+            // yields the sort variables here
             yield {
                 "array": Object.values(array),
                 "minIndex": minIndex,

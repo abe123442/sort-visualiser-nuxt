@@ -1,48 +1,18 @@
 <template>
     <div class="array-container">
+        <!-- uses vue to loop over each item in the array and set the heights of each array element (bar) to the number  -->
         <template v-for="(number, index) in array" :key="index">
-            <div class="bar" :class="barClasses(index)" :style="{ height: number + 'px' }"></div>
-            <!-- <div class="bar" :class="`current`" :style="{ height: number + 'px' }"></div> -->
+            <div class="bar" :style="{ height: number + 'px' }"></div>
         </template>
-
     </div>
 </template>
 <script setup>
 
+// defining props for the component
 const props = defineProps({
     array: Array,
     visualValues: Array
 });
-
-
-// const barClasses = (index) => {
-//     if (props.visualValues[index].style.finished === true) {
-//         return {
-//             sorted: true
-//         }
-//     }
-//     return {
-//         current: props.visualValues[index].style.current,
-//         swap: props.visualValues[index - 1].style.swap,
-//         sorted: props.visualValues[index].style.sorted,
-//     }
-// };
-const barClasses = (index) => {
-    let styles = {};
-    if (props.visualValues[index].finished === true) {
-        styles = {
-            sorted: true
-        }
-
-    } else {
-        styles = {
-            current: props.visualValues[index].current,
-            // swap: index === 0? false: props.visualValues[index - 1].style.swap,
-            sorted: props.visualValues[index].sorted,
-        }
-    }
-    return styles;
-};
 
 </script>
 

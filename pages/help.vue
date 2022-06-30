@@ -11,7 +11,7 @@
                     <td><h1 class="mt-10 mb-5 text-xl text-gray-700 font-black uppercase dark:text-gray-400"> About simulsort</h1></td>
                 </tr>
                    <tr >
-                    <td><h1 class="text-lg text-gray-700 font-medium dark:text-gray-400">SIMULSORT is intended to be a visual tool to help students learn various sorting algorithms. First version of SIMULSORT is focussing on 3 techniques - Bubble, Selection and Insertion </h1></td>
+                    <td><h1 class="text-lg text-gray-700 font-medium dark:text-gray-400">simulsort is intended to be a visual tool to help students learn various sorting algorithms. First prototype version of simulsort looks at 3 sorting algorithms - Bubble, Selection and Insertion </h1></td>
                 </tr>
 
                 <tr >

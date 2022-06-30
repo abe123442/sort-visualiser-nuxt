@@ -18,7 +18,7 @@ function shuffle(array) {
     return array;
 }
 
-
+// waits for "speed" time until resuming previous activity
 async function pause(speed) {
     return new Promise(resolve => {
         setTimeout(() => {
@@ -27,6 +27,7 @@ async function pause(speed) {
     });
 }
 
+// function that swaps array[i] and array[j]
 function swap(array, i, j) {
     [array[i], array[j]] = [array[j], array[i]]
 }
@@ -53,6 +54,7 @@ class LinkedList {
         this.lastNode = this.head; // The last element of the linked list
     }
 
+    // appends new data - adds a new node to the linked list
     append(data) {
         let nextNode = new LinkedNode(data);
         this.lastNode.next = nextNode;
@@ -60,14 +62,18 @@ class LinkedList {
         this.lastNode = nextNode;
     }
 
+    // sets the current node to its previous node
     traverseBack() {
         if (this.currentNode.prev) { this.currentNode = this.currentNode.prev; }
     }
 
+    // sets the current node to its next node
     traverseForward() {
         if (this.currentNode.next) { this.currentNode = this.currentNode.next; }
     }
 
+
+    // deletes the reference to the beginning of the linked list
     deleteList() {
         this.head = null;
     }
