@@ -151,7 +151,7 @@ export default {
 		// the entry point that sets up relevant data structures and variables for all sorting algorithms
 		initialiseSort() {
 			// prevents the sort from running if another algorithm is already running
-			if (this.sorting) return;
+			if (this.sorting || this.debugging) return;
 
 
 			// sets the boolean to true so that this.normalSort() will execute
@@ -267,7 +267,7 @@ export default {
 		// [2] UI LOGIC
 
 		cleanup() {
-			if (Object.keys(this.sortData).length == 0) return;
+			if (Object.keys(this.sortData).length === 0) return;
 
 			this.sortData = {};
 			this.sortHistory.deleteList();
