@@ -1,17 +1,18 @@
 <template>
     <PageWrapper class="flex flex-col justify-center items-center">
         <PageHeader>
-            <PageTitle :text="$t('pages.about.title')" class="capitalize" />
+            <PageTitle :text="$t('pages.help.title')" class="capitalize" />
         </PageHeader>
         <PageBody>
             <div class="flex flex-col items-center">
-                <img
+                
+                <!-- <img
                     src="https://avatars.githubusercontent.com/u/41994283?v=4"
                     class="inline-block rounded-full"
                     alt="viandwi24"
                     width="100"
                     height="100"
-                />
+                /> -->
                 <Button
                     size="xs"
                     text="Alfian Dwi Nugraha (@viandwi24)"
